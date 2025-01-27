@@ -1,0 +1,87 @@
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px;
+    border-bottom: 4px solid rgb(6, 175, 175);
+}
+
+.header .right{
+    color: rgb(6, 175, 175);
+    margin-bottom: 20px;
+}
+
+.facture-body{
+    padding: 10px;
+}
+
+.company-info p{
+    
+        display: flex;
+        flex-direction: column;
+    
+}
+
+.info-container{
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .facture-info{
+        background-color: rgb(223, 221, 221);
+        padding: 20px;
+    }
+}
+
+.dest-info p{
+
+        display: flex;
+        flex-direction: column;
+        
+
+}
+
+.additional-info{
+    width: 40%;
+    margin-bottom: 20px;
+}
+
+.table-container{
+    border-top: 4px solid rgb(6, 175, 175);
+    margin-bottom: 100px;
+    table{
+        margin-top: 20px;
+        width: 100%;
+        text-align: center;
+        border-collapse: collapse
+    }
+    th, td{
+        padding: 15px;
+        text-align: left;
+    }
+    tr{
+        border: 1px solid black;
+    }
+    tfoot{
+        border: none;
+        font-weight: bold;
+        #totalTTC{
+            color: rgb(6, 175, 175);
+        }
+    }
+
+}
+
+footer{
+    border-top: 2px solid grey;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    border-bottom: 15px solid rgb(6, 175, 175);
+}
+footer p{
+    display: flex;
+    flex-direction: column;
+    color:grey
+}

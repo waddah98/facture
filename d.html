@@ -1,0 +1,302 @@
+<link rel="stylesheet" href="style.css"></link>
+
+<div *ngIf="open" id="page_toprint" class="my_listings_add_edit menu-default hover-default compact add_edit_listing body" cz-shortcut-listen="true">
+    <div class="d-flex">
+      <div class="page page-break p-1" style="width: 100%;">
+          <div>
+              <div class="form-property">
+                  <header class="d-flex justify-content-between">
+                      <div class="left">
+                          <img src="../../../assets/img/first-logo.png" width="130" />
+                      </div>
+                      <div class="center">
+                          <div>Sarl Capital Social 1 000 000DT MF 1609221Y/A/M000 Adresse : 17 Rue d’usine Charguia 2 – Ariana 2035.</div>
+                          <div>Ste de transport terrestre de tous produits non réglementés pour le compte d’autrui.</div>
+                      </div>
+                  </header>
+                  <hr color="black" />
+                  <div style="text-align: center;" class="mt-0">
+                      <b class="b">Date : {{order.createdAt | date:'yyyy-MM-dd'}} </b>
+                  </div>
+                  <div class="d-flex justify-content-center align-items-center mt-0">
+                      <div style="text-align: center; font-size: 16px; font-weight: bold;" class="customBorder px-5 py-2">
+                          BON DE LIVRAISON N° {{ order.delivery.barCode}}
+                      </div>
+                      
+                      
+                      <svg id="barcode-first1"></svg>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                      <table class="mt-1 customBorder p-1" style="width: 50%;">
+                          <tbody>
+                              <tr>
+                                  <td>
+                                      <b>Nom de l'expéditeur:</b>
+                                      <span class="b">
+                                          Tunidiscount
+                                      </span>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td>
+                                      <b>Adresse:</b>
+                                      <span id="order_client_address_{{order.delivery.barCode}}">
+                                          sfax
+                                      </span> 
+                                  </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                      <table class="mt-1 customBorder p-1" style="width: 50%;">
+                          <tbody>
+                              <tr style="border-bottom: 1px solid #000;">
+                                  <td>
+                                      <b>Téléphone:</b>
+                                      58 066 853
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td>
+                                      <b>Matricule Fiscal :</b>
+                                      1885632/D (conformément à la circulaire de la présidence du gouvernement n° 2019-8 du 25/02/2019)
+                                  </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+                  <div style="display: flex;justify-content: center;" class="mt-1">
+                      
+                      <svg id="barcode-first2"></svg>
+                  </div>
+                  <div style="font-size: 18px; text-align: center;">
+                      <b>
+                          Sfax
+                      </b>
+                      &gt;&gt; ---- Dispatch ---- &gt;&gt;
+                      <b>
+                        {{order.city.region.label}} 
+                      </b>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                      <table class="mt-1 customBorder" style="width: 50%;">
+                          <tbody>
+                              <tr>
+                                  <td>
+                                      <div>
+                                          <b>NOM DE DESTINATAIRE:</b>
+                                          <span id="order_client_name_{{order.delivery.barCode}}" style="font-size: 16px;">
+                                            {{order.fullName}}
+                                          </span> 
+                                      </div>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td>
+                                      <b>Téléphone:</b>
+                                      <span style="font-size: 16px;">
+                                        {{order.phone}}
+                                      </span>
+                                      <b *ngIf="order.phone2">Téléphone 2:</b>
+                                      <span *ngIf="order.phone2" style="font-size: 16px;">
+                                        {{order.phone2}}
+                                      </span>
+                                  </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                      <table class="mt-1 customBorder" style="width: 50%;">
+                          <tbody>
+                              <tr>
+                                  <td>
+                                      <div>
+                                          <b>ADRESSE:</b>
+                                          <span style="font-size: 16px;">
+                                            {{order.address}} {{order.city.region.label}} {{order.city.label}}
+                                          </span>
+                                      </div>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td></td>
+                              </tr>
+                              <tr>
+                                  <td></td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+                  <div class="d-flex flex-column justify-content-center align-items-center">
+                      <table class="mt-1 customBorder p-1" style="font-size: 16px; width: 100%;">
+                          <tbody>
+                              <tr>
+                                  <th style="font-weight: bold;width: 60%; text-align: center;">Désignation-Contenu du colis</th>
+                                  <th style="font-weight: bold;width: 10%; text-align: center;">Quantité</th>
+                                  <th style="font-weight: bold;width: 15%; text-align: center;">Montant TTC</th>
+                              </tr>
+                              <tr>
+                                  <td style="padding: 5px; text-align: center;border: 1px solid #000;">
+                                      <span id="order_des_{{order.delivery.barCode}}" *ngFor="let data of order.productOrder; let i = index">
+                                        <span>
+                                          {{data.quantity}} * {{data.product.label}}
+                                        </span>
+                                        <span *ngIf="(i + 1 ) < order.productOrder.length">
+                                          ,
+                                        </span>
+                                      </span>
+                                  </td>
+                                  <td style="padding: 5px; text-align: center;border: 1px solid #000;">
+                                    {{totalQte}}
+                                  </td>
+                                  <td style="padding: 5px; text-align: center;border: 1px solid #000;">
+                                      <span *ngIf="isFreeShipping">
+                                          {{totalPrice | number:'1.3-3'}} DT
+                                      </span>
+                                      <span *ngIf="!isFreeShipping">
+                                          {{totalPrice + 7 | number:'1.3-3'}} DT
+                                      </span>
+                                  </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                      <div class="b">Dont TVA 7% 0.464 DT</div>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                      <div style="border: 2px solid #000; height: 100px;" class="col-6 mt-1">
+                          <div style="text-align: center;">
+                              <p style="font-weight: bold;" class="text-center">Instructions diverses :</p>
+                              <p id="order_ins_{{order.delivery.barCode}}" style="font-size: 16px;" *ngIf="order.comment">
+                                {{order.comment}}
+                              </p>
+                              <p id="order_ins_{{order.delivery.barCode}}" style="font-size: 16px;" *ngIf="!order.comment">
+                                
+                              </p>
+                              
+                          </div>
+                      </div>
+                      <div class="signature-box col-6 mt-1" style="height: 100px; width: 80px; border: 2px solid #000;">
+                          <p style="font-weight: bold;" class="text-center">Signature expéditeur:</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="arabic-text">
+              <div class="font-weight-bold text-center" style="font-size: 12px;">عـقـــــــد / تـــوكيــــــــــــــل</div>
+              <div class="text-center">
+                  نقل البضائع غير الخاضعة لإجراءات خاصة لحساب الغير عبر الطرقات البرية
+              </div>
+              <div class="text-right">
+                  بين الطرفين الممضين اسفله:
+              </div>
+              <div class="text-right">
+                  أولا
+                  <span> </span>
+                  صاحب المعرف/.. ب ت *****846 والقاطن ب
+                  <span>
+                      sfax
+                  </span>
+                  <div class="font-weight-bold text-center">بصفته البائع والعارض لسلع</div>
+              </div>
+              <div class="text-right">
+                  ثانيا شركة فورست دليفري صاحبة المعرف الجبائي 1609221Y/A/M/000 الكائن مقرها الاجتماعي بـ 17 نهج المصنع الشرقية 2 اريانة 2035 وصاحبة الوكالات الفرعية وذات النشاط الأصلي المصرح به لدى السلط الإدارية المعنية
+                  <span class="font-weight-bold">
+                      "نقل البضائع غير الخاضعة لإجراءات خاصة لحساب الغير عبر الطرقات البرية"،
+                  </span>
+                  <div class="font-weight-bold text-center">
+                      بصفتها ناقلة لحساب الغير
+                  </div>
+                  حيث ان الطرف الأول يعرض للبيع على موقعه الرقمي الافتراضي او بقاعة العرض الخاصة به بضاعة أو منتوجات للحرفاء، وحيث قام الحريف الشاري بإصدار طلبية لدى البائع، واتفقا على شروطها من حيث الثمن والبضاعة وكلفة النقل، وحيث تتولى شركة
+                  فورست دليفري بصفتها الناقل المتعاقد مع البائع مهمة إيصال الطلبية الى الشاري في شكل طرد محكم الغلق يحتوي على كل البيانات الخاصة بوصف البضاعة وثمنها وبيانات الحريف وعنوان التسليم في الآجال المتفق عليها، كما تتولى الشركة
+                  الناقلة تسليم الطرد للحريف وتتسلم نيابة عن البائع المبلغ المسجل على الطرد بما في ذلك كلفة النقل.
+              </div>
+              <div class="font-weight-bold text-right">
+                  و بناء على ذلك اتفق الطرفان على:
+              </div>
+              <div class="text-right">
+                  <span class="font-weight-bold">
+                      الفصل الأول:
+                  </span>
+                  <span>
+                      تعتبر المقدمة جزء لا يتجزأ من العقد / توكيل.
+                  </span>
+              </div>
+              <div class="text-right">
+                  <span class="font-weight-bold">
+                      الفصل الثاني:
+                  </span>
+                  <span>
+                      تتولى الشركة الناقلة المحافظة على الطرود وإيصالها للحرفاء على الحالة التي تسلمتهم عليها وذلك بالعنوان المحدد من طرف البائع بكامل تراب الجمهورية. وعند تعذر تسليم الطرد لاي سبب كان "غياب الحريف او عدم جاهزيته لاستلام الطرد
+                      او ... " واستنفاذ كل المحاولات، يقع ارجاع الطرد الى الباعث بصفته البائع.
+                  </span>
+              </div>
+              <div class="text-right">
+                  <span class="font-weight-bold">
+                      الفصل الثالث:
+                  </span>
+                  <span> تقوم الشركة الناقلة بتسليم الطرد الى الحريف بالعنوان المحدد من طرف البائع. </span>
+              </div>
+              <div class="text-right">
+                  <span class="font-weight-bold">
+                      الفصل الرابع:
+                  </span>
+                  <span>
+                      الشركة الناقلة لا تتحمل أية مسؤولية تتعلق بنوع ومواصفات ومحتوى البضاعة داخل الطرد، حيث يحل البائع مكانها عند وجود أي نزاع كان.
+                  </span>
+              </div>
+              <div class="text-right">
+                  <span class="font-weight-bold">
+                      الفصل الخامس:
+                  </span>
+                  <span>
+                      يفوض الطرف الأول بصفته البائع الطرف الثاني بصفته ناقل، استلام ثمن الطرد وكلفة النقل وموافقته على عدم تسليم الطرد للحريف الا بعد استيفاء شروط البيع (تسلم كامل المبلغ).
+                  </span>
+              </div>
+              <div class="text-right">
+                  <span class="font-weight-bold">
+                      الفصل السادس:
+                  </span>
+                  <span>
+                      ان امضاء وصل الاستلام من طرف الحريف يعتبر حجة في تسلمه للطرد وخلاص قيمته ومعلوم النقل.
+                  </span>
+              </div>
+              <div class="text-right">
+                  <span class="font-weight-bold">
+                      الفصل السابع:
+                  </span>
+                  <span>
+                      في صورة توفر حالة من حالات القوة القاهرة التي تحول دون تسليم الطرد، يقوم الناقل بالتنسيق مع الحريف لإيجاد حل، وعند ثبوت ضياع او تلف للطرد، يلجأ الطرفان (البائع والناقل) للتعويض المادي وفق الشروط المتفق عليها.
+                  </span>
+              </div>
+              <div class="text-right">
+                  <span class="font-weight-bold">
+                      الفصل الثامن:
+                  </span>
+                  <span>
+                      يلتزم الطرفان بفض كل خلاف يطرأ بينهما بشكل ودي. وفي حال استعصى الامر، يتم الالتجاء لمحاكم ولاية اريانة لفض النزاع.
+                  </span>
+              </div>
+              <div class="row">
+                  <div class="col-10">
+                      <span class="center-span">
+                          المراجع القانونية التونسية :
+                          <div>
+                              * القانون عدد 33 لسنة 2004 مؤرخ في 19 أفريل 2004، الفصل 37،
+                          </div>
+                          <div>
+                              ** أحكام الفصل 18 من مجلة الأداء على القيمة المضافة المتعلق بالوثائق المصاحبة لعملية نقل البضائع في إطار عملية البيع عن بعد من خلال موقع واب
+                          </div>
+                      </span>
+                      <div class="text-right">
+                          N° {{order.delivery.barCode}}
+                      </div>
+                  </div>
+                  <div class="col-2 cachet-img">
+                      <img src="../../../assets/img/first-cachet.jpg" />
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+      
+    </div>
+  </div>
+  
